@@ -12,8 +12,8 @@
     </head>
     <body>
         <h1>Hello from HTMX!</h1>
-        <button hx-get="data.html" hx-target="#data" hx-swap="innerHTML">Load me</button>
-        <button hx-get="data.html" hx-target="#data" hx-swap="beforeend">Add More!!</button>
+        <button hx-get="/data?name=jon+smith" hx-target="#data" hx-swap="innerHTML">Load me</button>
+        <button hx-get="/data" hx-target="#data" hx-swap="beforeend">Add More!!</button>
         <div id="data"></div>
         
         <form hx-post="/", hx-trigger="submit", hx-target="#response" hx-swap="innerHTML">
