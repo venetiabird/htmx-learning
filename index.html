@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Working with HTMX</title>
+        <style>
+            .bg-red { background-color: red;}
+            .bg-blue { background-color: blue;}
+            .bg-green { background-color: green;}
+        </style>
+    </head>
+    <body>
+        <h1>Hello from HTMX!</h1>
+        <button hx-get="data.html" hx-target="#data" hx-swap="innerHTML">Load me</button>
+        <button hx-get="data.html" hx-target="#data" hx-swap="beforeend">Add More!!</button>
+        <div id="data"></div>
+        
+        <form hx-post="/", hx-trigger="submit", hx-target="#response" hx-swap="innerHTML">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+           
+            <select id="colour" 
+                name="colour" hx-get="/change-color" hx-target="#response" hx-swap="outerHTML">
+                <option value="">Select a colour</option>"
+                <option value="bg-red">Red</option>
+                <option value="bg-blue">Blue</option>
+                <option value="bg-green">Green</option>
+            </select>
+             <button type="submit">Submit</button>
+        </form>
+        <div id="response-wrapper"><div id="response"></div></div>
+            
+        <script src="https://unpkg.com/htmx.org@2.0.2"></script>
+    </body>
+</html>
