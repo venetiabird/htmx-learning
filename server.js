@@ -6,7 +6,8 @@ const ejs = require('ejs');
 
 const port = 3000;
 
-const server = http.createServer((req, res) => { 
+const server = http.createServer(async (req, res) => {
+    console.log("=================");
     if(req.url.startsWith("/change-color")) {
         const url = new URL(req.url, `http://${req.headers.host}`);
         const colourClass = url.searchParams.get("colour") || "";
@@ -15,16 +16,12 @@ const server = http.createServer((req, res) => {
             </div>`)
     } else if(req.method === "GET" && req.url === "/data") {
         const filePath = path.join(__dirname, 'data.ejs');
-        ejs.renderFile(filePath, { data: { name: "Jon smith"} }, {}, function(err, str){
-            res.writeHead(200, {"Content-Type": "text/html"});
-            res.end(str)
-        });
-
-        // fs.readFile(filePath, 'utf8', (err, data) => {
-        //         res.writeHead(200, {"Content-Type": "text/html"});
-        //         res.end(data)
-        // })
-    
+        const result = await ejs.renderFile(
+          filePath,
+          { data: { name: "Jon smith"} }, // how do we read query params here?...
+        );
+        res.writeHead(200, {"Content-Type": "text/html"});
+        res.end(result)
     } else if(req.method === "GET" && req.url === "/") {
         const filePath = path.join(__dirname, 'index.html');
         fs.readFile(filePath, 'utf8', (err, data) => {
@@ -38,7 +35,7 @@ const server = http.createServer((req, res) => {
         })
 
         console.log("body", body);
-        
+
         req.on("end", () => {
             const params = new URLSearchParams(body);
             const parsedData = Object.fromEntries(params.entries());
