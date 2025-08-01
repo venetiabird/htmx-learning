@@ -17,11 +17,23 @@ const server = http.createServer(async (req, res) => {
     } else if(req.method === "GET" && req.url === "/data") {
         const filePath = path.join(__dirname, 'data.ejs');
         const result = await ejs.renderFile(
-          filePath,
-          { data: { name: "Jon smith"} }, // how do we read query params here?...
+            filePath,
+            {data: {name: "Jon smith"}}, // how do we read query params here?...
         );
         res.writeHead(200, {"Content-Type": "text/html"});
         res.end(result)
+    }
+    else if(req.method === "GET" && req.url.startsWith("/data?")) {
+        const url = new URL(req.url, `http://${req.headers.host}`);
+        const firstName = url.searchParams.get("name") || "";
+        const filePath = path.join(__dirname, 'data.ejs');
+        const result = await ejs.renderFile(
+            filePath,
+            { data: { name: firstName } },
+        )
+        res.writeHead(200, {"Content-Type": "text/html"});
+        res.end(result)
+
     } else if(req.method === "GET" && req.url === "/") {
         const filePath = path.join(__dirname, 'index.html');
         fs.readFile(filePath, 'utf8', (err, data) => {
