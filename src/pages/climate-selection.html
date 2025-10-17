@@ -6,21 +6,26 @@
         <title>Planting Guide</title>
     </head>
     <body>
-      <h1>1. Select your climate</h1>
+        <div id="container">
+          <h1>1. Select your climate</h1>
 
-      <p>Climate zones</p>
+          <p>Climate zones</p>
 
-      </p>select from the list below</p>
-
-
-      <ul>
-        <li>Tropical</li>
-        <li>Sub Tropical</li>
-        <li>Arid</li>
-        <li>Warm Temperate</li>
-        <li>Cool Temperate</li>
-      </ul>
-
+          <p>select from the list below</p>
+          <ul>
+            <li hx-trigger="click" hx-swap="outerHTML" hx-target="#container" hx-post="/plant-selection">
+                <label>
+                    Tropical
+                    <input type="radio" />
+                </label>
+            </li>
+            <li>Sub Tropical</li>
+            <li>Arid</li>
+            <li>Warm Temperate</li>
+            <li>Cool Temperate</li>
+          </ul>
+        </div>
       <script src="https://unpkg.com/htmx.org@2.0.2"></script>
     </body>
+</html>
 

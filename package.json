@@ -4,6 +4,7 @@
     "start": "concurrently -k -c '#bd02fc,#d6fc02' -n 'api,tsc' 'nodemon' 'tsc --watch --preserveWatchOutput --noEmit --project ./tsconfig.json'"
   },
   "dependencies": {
+    "@fastify/formbody": "^8.0.2",
     "concurrently": "^9.2.1",
     "ejs": "^3.1.10",
     "fastify": "^5.6.0",
